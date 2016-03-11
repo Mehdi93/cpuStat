@@ -8,23 +8,8 @@ using namespace std;
 #include <stdlib.h>
 #include "modeles.h"
 
-/*void setData(int* ptr, int size, string ligne)
-{
-    string buff;
-    stringstream ss(ligne);
-    
-    ss >> buff;
-    
-    //on boucle sur le nombre de variable dans notre structure
-    for(int i=0;i<(sizeof(cpuStat)/4);i++)
-    {
-      ss >> buff;
-      ptr[i] = atoi(buff.c_str());
-    }  
-}*/
-
 template<typename T> 
-void setData(T str, string ligne) 
+void setData(T str, string ligne) //parse un string et rempli une structure/variable avec les données correspondantes
 { 
     int *ptr = (int*)str;
     string buff;
@@ -32,8 +17,8 @@ void setData(T str, string ligne)
     
     ss >> buff;
     
-    //on boucle sur le nombre de variable dans notre structure
-    for(int i=0;i<(sizeof(*str)/4);i++)
+    //on boucle sur le nombre de variable dans notre structure/variable
+    for(int i=0;i<(sizeof(*str)/sizeof(long int));i++)
     {
       ss >> buff;
       ptr[i] = atoi(buff.c_str());
@@ -43,10 +28,7 @@ void setData(T str, string ligne)
 int main(int argc,char** argv)
 {
   fstream statFichier;
-  char tmp;
   string ligne;
-  int nbLignes = 0; //nombre de lignes d'informations dans le fichier stat
-  vector<int> testlist;
   
   statFichier.open("test.txt",ios::in); //ouverture du fichier
   
@@ -57,23 +39,31 @@ int main(int argc,char** argv)
   }
   else
   {
-    /*// A TESTER
-    while (statFichier >> buf)
-    {
-      getline(statFichier,ligne);
-      cpuStat *cpuTest = new cpuStat;    
-      setData((int*)cpuTest,sizeof(cpuStat),ligne);
-    }*/
+    string nomLigne;
     
-    
+    //lecture du fichier de stat
     getline(statFichier,ligne);
-    cpuStat *cpuTest = new cpuStat;    
-    //setData((int*)cpuTest,sizeof(cpuStat),ligne);
-    setData(cpuTest,ligne);
-    
-    cout<<cpuTest->user<<endl;
-    
-    
+    while (!statFichier.eof())
+    {
+      nomLigne = ligne.substr(0,ligne.find(' '));
+      
+      if(nomLigne.find("cpu")!=nomLigne.npos)
+      {
+      
+      }
+      else if(nomLigne.find("ctxt")!=nomLigne.npos)
+      {
+        long int *ctxt = new long int;
+        setData(ctxt,ligne);
+        cout<<*ctxt<<endl;
+      }
+      
+      getline(statFichier,ligne);
+    }
+   
+    /*getline(statFichier,ligne);
+    cpuStat *cpuTest = new cpuStat;
+    setData(cpuTest,ligne);*/
   }
   
   statFichier.close();
