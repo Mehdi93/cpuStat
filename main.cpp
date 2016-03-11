@@ -11,7 +11,7 @@ using namespace std;
 template<typename T> 
 void setData(T str, string ligne) //parse un string et rempli une structure/variable avec les données correspondantes
 { 
-    int *ptr = (int*)str;
+    long int *ptr = (long int*)str;
     string buff;
     stringstream ss(ligne);
     
@@ -21,8 +21,8 @@ void setData(T str, string ligne) //parse un string et rempli une structure/vari
     for(int i=0;i<(sizeof(*str)/sizeof(long int));i++)
     {
       ss >> buff;
-      ptr[i] = atoi(buff.c_str());
-    }  
+      ptr[i] = atol(buff.c_str());
+    }
 }
 
 int main(int argc,char** argv)
@@ -51,10 +51,10 @@ int main(int argc,char** argv)
       //on utilise une liste (vector) pour les cpu car le nb de coeurs est variable
       if(nomLigne.find("cpu")!=nomLigne.npos)
       {
-        /*cpuStat *cpuTest = new cpuStat;
+        cpuStat *cpuTest = new cpuStat;
         setData(cpuTest,ligne);
         
-        allCpu.push_back(*cpuTest);*/
+        allCpu.push_back(*cpuTest);
       }
       else if(nomLigne.find("ctxt")!=nomLigne.npos)
       {
@@ -85,13 +85,8 @@ int main(int argc,char** argv)
       getline(statFichier,ligne);
     }
     
-    cout<<"-----------------"<<endl;
+    cout<<allCpu.back().user<<endl;
 
-    cpuStat *cpuTest = new cpuStat;
-    ligne = "cpu  62457 8772 12400 1502419 33445 0 318 0 0 0";
-    setData(cpuTest,ligne);
-    
-    cout<<cpuTest->user<<endl;
   }
   
   statFichier.close();
