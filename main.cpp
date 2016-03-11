@@ -67,8 +67,7 @@ int main(int argc,char** argv)
     
     
     getline(statFichier,ligne);
-    cpuStat *cpuTest = new cpuStat;    
-    //setData((int*)cpuTest,sizeof(cpuStat),ligne);
+    cpuStat *cpuTest = new cpuStat;
     setData(cpuTest,ligne);
     
     cout<<cpuTest->user<<endl;
