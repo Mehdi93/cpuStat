@@ -6,7 +6,9 @@ using namespace std;
 #include <sstream>
 #include <vector>
 #include <stdlib.h>
+
 #include "modeles.h"
+#include "statHandler.h"
 
 template<typename T> 
 void setData(T str, string ligne) //parse un string et rempli une structure/variable avec les données correspondantes
@@ -40,6 +42,7 @@ int main(int argc,char** argv)
   }
   else
   {
+    statHandler sh;
     string nomLigne;
     
     //lecture du fichier de stat
@@ -48,6 +51,9 @@ int main(int argc,char** argv)
     {
       nomLigne = ligne.substr(0,ligne.find(' ')); //on isole le nom de la ligne
       
+      cout<<sh.getCtxt()<<endl;
+      
+      /*
       //on utilise une liste (vector) pour les cpu car le nb de coeurs est variable
       if(nomLigne.find("cpu")!=nomLigne.npos)
       {
@@ -81,7 +87,7 @@ int main(int argc,char** argv)
         long int *procs_blocked = new long int;
         setData(procs_blocked,ligne);
       }
-      
+      */
       getline(statFichier,ligne);
     }
 
