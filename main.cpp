@@ -47,6 +47,7 @@ int main(int argc,char** argv)
     {
       nomLigne = ligne.substr(0,ligne.find(' '));
       
+      //on utilise une liste (vector) pour les cpu car le nb de coeur est variable
       if(nomLigne.find("cpu")!=nomLigne.npos)
       {
       
@@ -57,13 +58,33 @@ int main(int argc,char** argv)
         setData(ctxt,ligne);
         cout<<*ctxt<<endl;
       }
+      else if(nomLigne.find("btime")!=nomLigne.npos)
+      {
+        long int *btime = new long int;
+        setData(btime,ligne);
+        cout<<*btime<<endl;
+      }
+      else if(nomLigne.find("processes")!=nomLigne.npos)
+      {
+        long int *processes = new long int;
+        setData(processes,ligne);
+        cout<<*processes<<endl;
+      }
+      else if(nomLigne.find("procs_running")!=nomLigne.npos)
+      {
+        long int *procs_running = new long int;
+        setData(procs_running,ligne);
+        cout<<*procs_running<<endl;
+      }
+      else if(nomLigne.find("procs_blocked")!=nomLigne.npos)
+      {
+        long int *procs_blocked = new long int;
+        setData(procs_blocked,ligne);
+        cout<<*procs_blocked<<endl;
+      }
       
       getline(statFichier,ligne);
     }
-   
-    /*getline(statFichier,ligne);
-    cpuStat *cpuTest = new cpuStat;
-    setData(cpuTest,ligne);*/
   }
   
   statFichier.close();
