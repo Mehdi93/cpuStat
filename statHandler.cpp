@@ -14,7 +14,7 @@ statHandler::statHandler()
 
 statHandler::~statHandler()
 {
-  delete allCpu; //AZERTY itérrer sur chaque cpuStat de la liste et utiliser delete
+  delete allCpu;
   delete ctxt;
   delete btime;
   delete processes;
@@ -94,10 +94,11 @@ void statHandler::refreshData()
       //on utilise une liste (vector) pour les cpu car le nb de coeurs est variable
       if(nomLigne.find("cpu")!=nomLigne.npos)
       {
-        cpuStat *cpuTest = new cpuStat;
-        setData(cpuTest,ligne);
+        cpuStat *cpuTmp = new cpuStat;
+        setData(cpuTmp,ligne);
         
-        allCpu->push_back(*cpuTest);
+        allCpu->push_back(*cpuTmp);
+        delete cpuTmp;
       }
       else if(nomLigne.find("ctxt")!=nomLigne.npos)
       {
