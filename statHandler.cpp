@@ -73,6 +73,7 @@ void statHandler::refreshData()
   fstream statFichier;
   string ligne;
   
+  //AZERTY remplacer par "/proc/stat"
   statFichier.open("test.txt",ios::in); //ouverture du fichier
   
   //on teste que le fichier existe
