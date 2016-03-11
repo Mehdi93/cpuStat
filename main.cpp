@@ -29,7 +29,7 @@ int main(int argc,char** argv)
 {
   fstream statFichier;
   string ligne;
-  vector<cpuStat> allCpu;
+  vector<cpuStat> *allCpu = new vector<cpuStat>;
   
   statFichier.open("test.txt",ios::in); //ouverture du fichier
   
@@ -54,7 +54,7 @@ int main(int argc,char** argv)
         cpuStat *cpuTest = new cpuStat;
         setData(cpuTest,ligne);
         
-        allCpu.push_back(*cpuTest);
+        allCpu->push_back(*cpuTest);
       }
       else if(nomLigne.find("ctxt")!=nomLigne.npos)
       {
@@ -84,8 +84,6 @@ int main(int argc,char** argv)
       
       getline(statFichier,ligne);
     }
-    
-    cout<<allCpu.back().user<<endl;
 
   }
   
