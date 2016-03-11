@@ -29,6 +29,7 @@ int main(int argc,char** argv)
 {
   fstream statFichier;
   string ligne;
+  vector<cpuStat> allCpu;
   
   statFichier.open("test.txt",ios::in); //ouverture du fichier
   
@@ -45,46 +46,52 @@ int main(int argc,char** argv)
     getline(statFichier,ligne);
     while (!statFichier.eof())
     {
-      nomLigne = ligne.substr(0,ligne.find(' '));
+      nomLigne = ligne.substr(0,ligne.find(' ')); //on isole le nom de la ligne
       
-      //on utilise une liste (vector) pour les cpu car le nb de coeur est variable
+      //on utilise une liste (vector) pour les cpu car le nb de coeurs est variable
       if(nomLigne.find("cpu")!=nomLigne.npos)
       {
-      
+        /*cpuStat *cpuTest = new cpuStat;
+        setData(cpuTest,ligne);
+        
+        allCpu.push_back(*cpuTest);*/
       }
       else if(nomLigne.find("ctxt")!=nomLigne.npos)
       {
         long int *ctxt = new long int;
         setData(ctxt,ligne);
-        cout<<*ctxt<<endl;
       }
       else if(nomLigne.find("btime")!=nomLigne.npos)
       {
         long int *btime = new long int;
         setData(btime,ligne);
-        cout<<*btime<<endl;
       }
       else if(nomLigne.find("processes")!=nomLigne.npos)
       {
         long int *processes = new long int;
         setData(processes,ligne);
-        cout<<*processes<<endl;
       }
       else if(nomLigne.find("procs_running")!=nomLigne.npos)
       {
         long int *procs_running = new long int;
         setData(procs_running,ligne);
-        cout<<*procs_running<<endl;
       }
       else if(nomLigne.find("procs_blocked")!=nomLigne.npos)
       {
         long int *procs_blocked = new long int;
         setData(procs_blocked,ligne);
-        cout<<*procs_blocked<<endl;
       }
       
       getline(statFichier,ligne);
     }
+    
+    cout<<"-----------------"<<endl;
+
+    cpuStat *cpuTest = new cpuStat;
+    ligne = "cpu  62457 8772 12400 1502419 33445 0 318 0 0 0";
+    setData(cpuTest,ligne);
+    
+    cout<<cpuTest->user<<endl;
   }
   
   statFichier.close();
